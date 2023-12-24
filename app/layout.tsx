@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 
 const V10LET = localFont({
   src: "../public/V1OLET-Regular.otf",
@@ -19,7 +20,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${V10LET.variable} ${inter.className}`}>{children}</body>
+      <ThemeProvider>
+        <body className={`${V10LET.variable} ${inter.className}`}>{children}</body>
+      </ThemeProvider>
     </html>
   );
 }
