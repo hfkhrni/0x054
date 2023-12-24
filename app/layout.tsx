@@ -19,10 +19,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <ThemeProvider>
-        <body className={`${V10LET.variable} ${inter.className}`}>{children}</body>
-      </ThemeProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${V10LET.variable} ${inter.className}`}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange={true} storageKey="theme">
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
