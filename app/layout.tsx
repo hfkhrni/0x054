@@ -19,9 +19,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning={true}>
       <body className={`${V10LET.variable} ${inter.className}`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange={true} storageKey="theme">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true} disableTransitionOnChange={true} storageKey="theme">
           {children}
         </ThemeProvider>
       </body>

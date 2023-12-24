@@ -1,3 +1,4 @@
+import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
@@ -11,6 +12,7 @@ export default function Home() {
       <Button variant="secondary" className="rounded-sm font-mono text-base">
         LOG IN
       </Button>
+      {/* <ModeToggle></ModeToggle> */}
     </main>
   );
 }
