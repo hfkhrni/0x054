@@ -17,6 +17,12 @@ const config = {
         display: ["var(--font-violet)"],
       },
       colors: {
+        char: {
+          100: "#373737",
+          300: "#292927",
+          400: "#1f1f1d",
+          500: "#333331",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
