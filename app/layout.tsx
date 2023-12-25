@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ConvexClientProvider } from "@/components/providers/convex-provider";
 
 const V10LET = localFont({
-  src: "../public/V1OLET-Regular.otf",
+  src: "../public/fonts/V1OLET-Regular.otf",
   display: "swap",
   variable: "--font-violet",
 });
