@@ -10,7 +10,7 @@ function MainLayoung({ children }: { children: React.ReactNode }) {
 
   if (isLoading) {
     return (
-      <div className="flex h-screen items-center justify-center  dark:bg-char-400">
+      <div className="flex h-full items-center justify-center  dark:bg-char-400">
         <Spinner />
       </div>
     );
