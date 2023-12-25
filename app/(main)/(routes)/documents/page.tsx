@@ -24,7 +24,7 @@ function DocumentsPage() {
   }
   return (
     <div className="flex h-full flex-col items-center justify-center space-y-4">
-      <p className="font-mono text-sm italic">lonesome empty, expanding void</p>
+      <p className="font-mono text-sm italic text-muted-foreground">lonesome empty, expanding void</p>
       <Button variant="default" onClick={onCreate} className="font-mono text-base italic">
         + create a file +
       </Button>
