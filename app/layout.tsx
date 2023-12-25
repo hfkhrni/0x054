@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ConvexClientProvider } from "@/components/providers/convex-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const V10LET = localFont({
   src: "../public/fonts/V1OLET-Regular.otf",
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${V10LET.variable} ${inter.className} ${jetmono.variable}`}>
         <ConvexClientProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true} disableTransitionOnChange={true} storageKey="theme">
+            <Toaster className="font-mono dark:bg-char-400" closeButton position="bottom-right" />
             {children}
           </ThemeProvider>
         </ConvexClientProvider>
