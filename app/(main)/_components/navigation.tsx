@@ -4,6 +4,7 @@ import { ChevronLeft, MenuIcon } from "lucide-react";
 import { useMediaQuery } from "@react-hookz/web";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import UserItem from "./user-item";
 
 function Navigation() {
   const pathname = usePathname();
@@ -100,7 +101,7 @@ function Navigation() {
         <div onClick={collapse} role="button" className={cn("absolute right-2 top-3 h-6 w-6 rounded-sm text-muted-foreground opacity-0 transition hover:bg-neutral-300 group-hover/sidebar:opacity-100 dark:hover:bg-neutral-600", isMobile && "opacity-100")}>
           <ChevronLeft className="h-6 w-6" />
         </div>
-        <div>action items</div>
+        <UserItem></UserItem>
         <div className="mt-4">action items</div>
         <div></div>
         {!isMobile && <div onMouseDown={handleMouseDown} onDoubleClick={resetWidth} className="absolute right-0 top-0 h-full w-1 cursor-ew-resize bg-primary/10 opacity-0 transition group-hover/sidebar:opacity-100"></div>}
