@@ -15,6 +15,7 @@ const config = {
     extend: {
       fontFamily: {
         display: ["var(--font-violet)"],
+        mono: ["var(--font-jetmono)"],
       },
       colors: {
         char: {
