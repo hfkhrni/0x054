@@ -3,13 +3,14 @@
 import { Spinner } from "@/components/spinner";
 import { useConvexAuth } from "convex/react";
 import { redirect } from "next/navigation";
+import Navigation from "./_components/navigation";
 
 function MainLayoung({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useConvexAuth();
 
   if (isLoading) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex h-screen items-center justify-center  dark:bg-char-400">
         <Spinner />
       </div>
     );
@@ -17,7 +18,12 @@ function MainLayoung({ children }: { children: React.ReactNode }) {
   if (!isAuthenticated) {
     return redirect("/");
   }
-  return <>{children}</>;
+  return (
+    <div className="flex h-full dark:bg-char-400">
+      <Navigation />
+      <main>{children}</main>
+    </div>
+  );
 }
 
 export default MainLayoung;
