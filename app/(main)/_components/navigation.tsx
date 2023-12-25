@@ -1,10 +1,24 @@
 "use client";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
-import { ChevronLeft, MenuIcon } from "lucide-react";
+import {
+  ChevronLeft,
+  Cog,
+  MenuIcon,
+  Plus,
+  Regex,
+  Search,
+  Sliders,
+} from "lucide-react";
 import { useMediaQuery } from "@react-hookz/web";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+
+import { useQuery, useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+
 import UserItem from "./user-item";
+import Item from "./item";
+import { toast } from "sonner";
 
 function Navigation() {
   const pathname = usePathname();
@@ -14,6 +28,9 @@ function Navigation() {
   const navbarRef = useRef<ElementRef<"div">>(null);
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
+
+  const documents = useQuery(api.documents.get);
+  const create = useMutation(api.documents.create);
 
   const resetDuration: number = 150;
 
@@ -44,7 +61,9 @@ function Navigation() {
     }
   }
 
-  function handleMouseDown(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+  function handleMouseDown(
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  ) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -82,32 +101,89 @@ function Navigation() {
       setIsResetting(true);
 
       sidebarRef.current.style.width = isMobile ? "100%" : "240px";
-      navbarRef.current.style.setProperty("width", isMobile ? "0" : "calc(100% - 240px)");
+      navbarRef.current.style.setProperty(
+        "width",
+        isMobile ? "0" : "calc(100% - 240px)",
+      );
       navbarRef.current.style.setProperty("left", isMobile ? "100" : "240px");
       setTimeout(() => setIsResetting(false), resetDuration);
     }
   }
 
+  function handleCreate() {
+    const promise = create({ title: "Untitled" });
+    toast.promise(promise, {
+      loading: "Creating a new file...",
+      success: "File created",
+      error: "Failed to create a file",
+    });
+  }
   return (
     <>
       <aside
         ref={sidebarRef}
         className={cn(
-          "group/sidebar relative z-[99999] flex h-full w-60 flex-col overflow-y-auto border-r-[1px] border-secondary bg-secondary group-hover/sidebar:border-r-0 dark:border-char-100 dark:bg-char-300",
-          isResetting && `transition-all ease-in-out duration-${resetDuration}`,
-          isMobile && "w-0"
+          "group/sidebar relative z-[99999] flex h-full w-60 flex-col overflow-y-auto border-r-[1px] bg-secondary group-hover/sidebar:border-r-0 dark:border-char-100 dark:bg-char-300",
+          isResetting &&
+            `transitiona-all ease-in-out duration-${resetDuration}`,
+          isMobile && "w-0",
         )}
       >
-        <div onClick={collapse} role="button" className={cn("absolute right-2 top-3 h-6 w-6 rounded-sm text-muted-foreground opacity-0 transition hover:bg-neutral-300 group-hover/sidebar:opacity-100 dark:hover:bg-neutral-600", isMobile && "opacity-100")}>
-          <ChevronLeft className="h-6 w-6" />
+        <div
+          onClick={collapse}
+          role="button"
+          className={cn(
+            "absolute right-2 top-3 h-5 w-5 rounded-sm text-muted-foreground opacity-0 transition hover:bg-neutral-300 group-hover/sidebar:opacity-100 dark:hover:bg-neutral-600",
+            isMobile && "opacity-100",
+          )}
+        >
+          <ChevronLeft className="h-5 w-5" />
         </div>
         <UserItem></UserItem>
+        <Item
+          label="New File"
+          onClick={handleCreate}
+          icon={Plus}
+        ></Item>
+        <Item
+          label="Search"
+          onClick={() => {}}
+          icon={Regex}
+          isSearch
+        ></Item>
+        <Item
+          label="Settings"
+          onClick={() => {}}
+          icon={Sliders}
+        ></Item>
+        {documents?.map((doc) => <p key={doc._id}>{doc.title}</p>)}
         <div className="mt-4">action items</div>
         <div></div>
-        {!isMobile && <div onMouseDown={handleMouseDown} onDoubleClick={resetWidth} className="absolute right-0 top-0 h-full w-1 cursor-ew-resize bg-primary/10 opacity-0 transition group-hover/sidebar:opacity-100"></div>}
+        {!isMobile && (
+          <div
+            onMouseDown={handleMouseDown}
+            onDoubleClick={resetWidth}
+            className="absolute right-0 top-0 h-full w-1 cursor-ew-resize bg-primary/10 opacity-0 transition group-hover/sidebar:opacity-100"
+          ></div>
+        )}
       </aside>
-      <div ref={navbarRef} className={cn("absolute top-0 z-[99999] left-60 w-[calc(100%-240px)]", isResetting && `transition-all ease-in-out duration-${resetDuration}`, isMobile && "left-0 w-full")}>
-        <nav className="w-full bg-transparent px-3 py-2">{isCollapsed && <MenuIcon onClick={resetWidth} role="button" className="h-6 w-6 text-muted-foreground" />}</nav>
+      <div
+        ref={navbarRef}
+        className={cn(
+          "absolute top-0 z-[99999] left-60 w-[calc(100%-240px)]",
+          isResetting && `transition-all ease-in-out duration-${resetDuration}`,
+          isMobile && "left-0 w-full",
+        )}
+      >
+        <nav className="w-full bg-transparent px-3 py-2">
+          {isCollapsed && (
+            <MenuIcon
+              onClick={resetWidth}
+              role="button"
+              className="h-6 w-6 text-muted-foreground"
+            />
+          )}
+        </nav>
       </div>
     </>
   );
