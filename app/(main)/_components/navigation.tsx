@@ -13,12 +13,14 @@ import { useMediaQuery } from "@react-hookz/web";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-import { useQuery, useMutation } from "convex/react";
+import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
 import UserItem from "./user-item";
 import Item from "./item";
+import DocumentList from "./doument-list";
 import { toast } from "sonner";
+import { ModeToggle } from "@/components/mode-toggle";
 
 function Navigation() {
   const pathname = usePathname();
@@ -29,7 +31,6 @@ function Navigation() {
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
 
-  const documents = useQuery(api.documents.get);
   const create = useMutation(api.documents.create);
 
   const resetDuration: number = 150;
@@ -156,8 +157,10 @@ function Navigation() {
           onClick={() => {}}
           icon={Sliders}
         ></Item>
-        {documents?.map((doc) => <p key={doc._id}>{doc.title}</p>)}
-        <div className="mt-4">action items</div>
+        <div className="mt-4">
+          <DocumentList />
+          <ModeToggle></ModeToggle>
+        </div>
         <div></div>
         {!isMobile && (
           <div
