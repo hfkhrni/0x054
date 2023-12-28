@@ -7,7 +7,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import Item from "./item";
 import { cn } from "@/lib/utils";
-import { Asterisk, Brackets, FileText, SquareDashedBottom } from "lucide-react";
+import { Asterisk } from "lucide-react";
 
 type DocumentListProps = {
   parentDocumentId?: Id<"documents">;
