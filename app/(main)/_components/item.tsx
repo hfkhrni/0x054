@@ -22,6 +22,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { useUser } from "@clerk/clerk-react";
 
 type ItemProps = {
   label: string;
@@ -49,6 +50,7 @@ export default function Item({
 }: ItemProps) {
   const ChevronIcon = expanded ? ChevronDown : ChevronRight;
   const router = useRouter();
+  const { user } = useUser();
   const create = useMutation(api.documents.create);
   const archive = useMutation(api.documents.archive);
   function onCreate(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
@@ -130,7 +132,7 @@ export default function Item({
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-              className="w-20"
+              className=""
               align="start"
               side="bottom"
               forceMount
@@ -138,6 +140,12 @@ export default function Item({
               <DropdownMenuItem onClick={onArchive}>
                 <Trash className="mr-2 h-4 w-4" />
                 Archive
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <div className="font-mono text-xs">
+                  Last modified by: {user?.fullName}
+                </div>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
