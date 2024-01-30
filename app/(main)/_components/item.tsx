@@ -27,7 +27,7 @@ import { useUser } from "@clerk/clerk-react";
 type ItemProps = {
   label: string;
   icon: LucideIcon;
-  onClick: () => void;
+  onClick?: () => void;
   id?: Id<"documents">;
   active?: boolean;
   documentIcon?: string;
@@ -36,6 +36,7 @@ type ItemProps = {
   level?: number;
   onExpand?: () => void;
 };
+
 export default function Item({
   label,
   onClick,
