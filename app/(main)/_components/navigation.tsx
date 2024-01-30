@@ -8,6 +8,7 @@ import {
   Regex,
   Search,
   Sliders,
+  Trash,
 } from "lucide-react";
 import { useMediaQuery } from "@react-hookz/web";
 import { usePathname } from "next/navigation";
@@ -21,6 +22,7 @@ import Item from "./item";
 import DocumentList from "./doument-list";
 import { toast } from "sonner";
 import { ModeToggle } from "@/components/mode-toggle";
+import { Popover } from "@radix-ui/react-popover";
 
 function Navigation() {
   const pathname = usePathname();
@@ -159,6 +161,12 @@ function Navigation() {
         ></Item>
         <div className="mt-4">
           <DocumentList />
+          <Popover>
+            <Item
+              label="Archived"
+              icon={Trash}
+            ></Item>
+          </Popover>
           <ModeToggle></ModeToggle>
         </div>
         <div></div>
