@@ -1,13 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
 import {
+  ArchiveX,
   ChevronDown,
   ChevronRight,
-  FileMinus,
   LucideIcon,
   MoreHorizontal,
   Plus,
-  Trash,
 } from "lucide-react";
 import { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
@@ -133,18 +132,18 @@ export default function Item({
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-              className=""
+              className="font-mono text-muted-foreground"
               align="start"
               side="bottom"
               forceMount
             >
               <DropdownMenuItem onClick={onArchive}>
-                <Trash className="mr-2 h-4 w-4" />
+                <ArchiveX className="mr-2 h-4 w-4" />
                 Archive
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <div className="font-mono text-xs">
+                <div className="text-xs">
                   Last modified by: {user?.fullName}
                 </div>
               </DropdownMenuItem>
