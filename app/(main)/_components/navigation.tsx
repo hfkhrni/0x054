@@ -1,14 +1,12 @@
 "use client";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
 import {
+  ArchiveX,
   ChevronLeft,
-  Cog,
   MenuIcon,
   Plus,
   Regex,
-  Search,
   Sliders,
-  Trash,
 } from "lucide-react";
 import { useMediaQuery } from "@react-hookz/web";
 import { usePathname } from "next/navigation";
@@ -22,7 +20,12 @@ import Item from "./item";
 import DocumentList from "./doument-list";
 import { toast } from "sonner";
 import { ModeToggle } from "@/components/mode-toggle";
-import { Popover } from "@radix-ui/react-popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@radix-ui/react-popover";
+import ArchivedList from "./archived-list";
 
 function Navigation() {
   const pathname = usePathname();
@@ -162,10 +165,18 @@ function Navigation() {
         <div className="mt-4">
           <DocumentList />
           <Popover>
-            <Item
-              label="Archived"
-              icon={Trash}
-            ></Item>
+            <PopoverTrigger className="mt-4 w-full">
+              <Item
+                label="Archived"
+                icon={ArchiveX}
+              />
+            </PopoverTrigger>
+            <PopoverContent
+              side={isMobile ? "bottom" : "right"}
+              className="w-72 rounded-sm bg-neutral-300/50 p-0 sm:ml-2 dark:bg-char-300"
+            >
+              <ArchivedList />
+            </PopoverContent>
           </Popover>
           <ModeToggle></ModeToggle>
         </div>
