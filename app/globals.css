@@ -6,7 +6,6 @@ html,
 body,
 :root {
   height: 100%;
-  font: "gitan-latin", sans-serif;
 }
 
 @layer base {
@@ -43,13 +42,13 @@ body,
   }
 
   .dark {
-    --background: 0 0% 3.9%;
+    --background: 60 0% 8%;
     --foreground: 0 0% 98%;
 
-    --card: 0 0% 3.9%;
+    --card: 60 0% 8%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 3.9%;
+    --popover: 60 0% 8%;
     --popover-foreground: 0 0% 98%;
 
     --primary: 0 0% 98%;
