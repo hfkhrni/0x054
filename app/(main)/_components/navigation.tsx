@@ -26,6 +26,7 @@ import {
   PopoverTrigger,
 } from "@radix-ui/react-popover";
 import ArchivedList from "./archived-list";
+import { useSearch } from "@/hooks/use-search";
 
 function Navigation() {
   const pathname = usePathname();
@@ -35,7 +36,7 @@ function Navigation() {
   const navbarRef = useRef<ElementRef<"div">>(null);
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
-
+  const search = useSearch();
   const create = useMutation(api.documents.create);
 
   const resetDuration: number = 150;
@@ -153,7 +154,7 @@ function Navigation() {
         ></Item>
         <Item
           label="Search"
-          onClick={() => {}}
+          onClick={search.onOpen}
           icon={Regex}
           isSearch
         ></Item>
