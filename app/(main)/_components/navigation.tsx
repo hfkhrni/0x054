@@ -27,6 +27,7 @@ import {
 } from "@radix-ui/react-popover";
 import ArchivedList from "./archived-list";
 import { useSearch } from "@/hooks/use-search";
+import { useSettings } from "@/hooks/use-settings";
 
 function Navigation() {
   const pathname = usePathname();
@@ -37,6 +38,7 @@ function Navigation() {
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
   const search = useSearch();
+  const settings = useSettings();
   const create = useMutation(api.documents.create);
 
   const resetDuration: number = 150;
@@ -160,7 +162,7 @@ function Navigation() {
         ></Item>
         <Item
           label="Settings"
-          onClick={() => {}}
+          onClick={settings.onOpen}
           icon={Sliders}
         ></Item>
         <div className="mt-4">
