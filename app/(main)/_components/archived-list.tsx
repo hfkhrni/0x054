@@ -15,7 +15,7 @@ function ArchivedList() {
   const router = useRouter();
   const params = useParams();
   const documents = useQuery(api.documents.getArchived);
-  const restore = useMutation(api.documents.restoreArchive);
+  const restore = useMutation(api.documents.restoreArchived);
   const remove = useMutation(api.documents.remove);
 
   const [search, setSearch] = useState("");
