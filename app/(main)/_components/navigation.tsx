@@ -9,7 +9,7 @@ import {
   Sliders,
 } from "lucide-react";
 import { useMediaQuery } from "@react-hookz/web";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 import { useMutation } from "convex/react";
@@ -28,6 +28,7 @@ import {
 import ArchivedList from "./archived-list";
 import { useSearch } from "@/hooks/use-search";
 import { useSettings } from "@/hooks/use-settings";
+import Navbar from "./navbar";
 
 function Navigation() {
   const pathname = usePathname();
@@ -39,6 +40,7 @@ function Navigation() {
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
   const search = useSearch();
   const settings = useSettings();
+  const params = useParams();
   const create = useMutation(api.documents.create);
 
   const resetDuration: number = 150;
@@ -200,15 +202,22 @@ function Navigation() {
           isMobile && "left-0 w-full",
         )}
       >
-        <nav className="w-full bg-transparent px-3 py-2">
-          {isCollapsed && (
-            <MenuIcon
-              onClick={resetWidth}
-              role="button"
-              className="h-6 w-6 text-muted-foreground"
-            />
-          )}
-        </nav>
+        {!!params.documentId ? (
+          <Navbar
+            isCollapsed={isCollapsed}
+            onResetWidth={resetWidth}
+          />
+        ) : (
+          <nav className="w-full bg-transparent px-3 py-2">
+            {isCollapsed && (
+              <MenuIcon
+                onClick={resetWidth}
+                role="button"
+                className="h-6 w-6 text-muted-foreground"
+              />
+            )}
+          </nav>
+        )}
       </div>
     </>
   );
