@@ -29,6 +29,9 @@ const config = {
           400: "#1f1f1d",
           500: "#333331",
         },
+        b: {
+          accent: "hsl(var(--b-accent))",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
