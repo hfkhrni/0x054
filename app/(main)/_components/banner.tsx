@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useMutation } from "convex/react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 function Banner({ documentId }: { documentId: Id<"documents"> }) {
@@ -31,7 +31,7 @@ function Banner({ documentId }: { documentId: Id<"documents"> }) {
   }
 
   return (
-    <div className="flex w-full items-center justify-center gap-x-2 bg-b-accent p-2 text-center font-mono text-sm font-medium text-char-400">
+    <div className="flex w-full items-center justify-center gap-x-2 bg-b-accent p-2 text-center font-mono text-sm font-medium text-neutral-50 dark:text-char-400">
       <p className="pr-2">This page is archived</p>
       <Button
         size="sm"
