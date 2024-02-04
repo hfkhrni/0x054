@@ -34,6 +34,11 @@ function Title({ initData }: { initData: Doc<"documents"> }) {
     if (event.key === "Enter") {
       disableInput();
     }
+
+    if (event.key === "Escape") {
+      setTitle(initData.title);
+      disableInput();
+    }
   }
 
   return (
@@ -64,7 +69,7 @@ function Title({ initData }: { initData: Doc<"documents"> }) {
 }
 
 Title.Skeleton = function TitleSkeleton() {
-  return <Skeleton className="h-4 w-20 rounded-sm" />;
+  return <Skeleton className="h-6 w-20 rounded-sm" />;
 };
 
 export default Title;
