@@ -183,7 +183,6 @@ function Navigation() {
               <ArchivedList />
             </PopoverContent>
           </Popover>
-          <ModeToggle></ModeToggle>
         </div>
         <div></div>
         {!isMobile && (
