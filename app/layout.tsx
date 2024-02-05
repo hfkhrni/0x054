@@ -6,6 +6,7 @@ import "./globals.css";
 import { ConvexClientProvider } from "@/components/providers/convex-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import ModalProvider from "@/components/providers/modal-provider";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 
 const V10LET = localFont({
   src: "../public/fonts/V1OLET-Regular.otf",
@@ -42,21 +43,23 @@ export default function RootLayout({
         className={`${V10LET.variable} ${inter.className} ${jetmono.variable}`}
       >
         <ConvexClientProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem={true}
-            disableTransitionOnChange={true}
-            storageKey="theme"
-          >
-            <Toaster
-              className="font-mono dark:bg-char-400"
-              closeButton
-              position="bottom-right"
-            />
-            <ModalProvider />
-            {children}
-          </ThemeProvider>
+          <EdgeStoreProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem={true}
+              disableTransitionOnChange={true}
+              storageKey="theme"
+            >
+              <Toaster
+                className="font-mono dark:bg-char-400"
+                closeButton
+                position="bottom-right"
+              />
+              <ModalProvider />
+              {children}
+            </ThemeProvider>
+          </EdgeStoreProvider>
         </ConvexClientProvider>
       </body>
     </html>
