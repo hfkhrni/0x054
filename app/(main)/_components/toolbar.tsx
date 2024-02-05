@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { api } from "@/convex/_generated/api";
 import { Doc } from "@/convex/_generated/dataModel";
+import { useCoverImage } from "@/hooks/use-cover-image";
 import { useMutation } from "convex/react";
-import { ImageIcon, Smile, X } from "lucide-react";
+import { ImageIcon } from "lucide-react";
 import { useRef, ElementRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 
@@ -14,8 +15,7 @@ function Toolbar({ initData, preview }: ToolbarProps) {
   const inputRef = useRef<ElementRef<"textarea">>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(initData.title);
-  const prevTitle = isEditing ? inputRef.current?.value : "";
-
+  const coverImage = useCoverImage();
   const update = useMutation(api.documents.update);
   function input() {
     if (preview) return;
@@ -51,10 +51,11 @@ function Toolbar({ initData, preview }: ToolbarProps) {
         <p className="pt-6 text-6xl">{initData.icon}</p>
       )}
       <div className="flex items-center gap-x-1 py-4 font-mono opacity-0 group-hover:opacity-100">
-        {!initData.icon && !preview && (
+        {!initData.coverImage && !preview && (
           <Button
             variant="outline"
             size="sm"
+            onClick={coverImage.onOpen}
             className="text-xs text-muted-foreground"
           >
             <ImageIcon className="mr-2 h-4 w-4" />
