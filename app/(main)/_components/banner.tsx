@@ -20,9 +20,8 @@ function Banner({ documentId }: { documentId: Id<"documents"> }) {
   }
 
   function onRemove() {
-    const promise = remove({ id: documentId }).then(() => {
-      router.push(`/documents/`);
-    });
+    const promise = remove({ id: documentId });
+    router.push(`/documents/`);
     toast.promise(promise, {
       loading: "Deleting...",
       success: "File deleted",
