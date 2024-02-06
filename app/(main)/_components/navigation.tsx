@@ -9,7 +9,7 @@ import {
   Sliders,
 } from "lucide-react";
 import { useMediaQuery } from "@react-hookz/web";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 import { useMutation } from "convex/react";
@@ -19,7 +19,6 @@ import UserItem from "./user-item";
 import Item from "./item";
 import DocumentList from "./doument-list";
 import { toast } from "sonner";
-import { ModeToggle } from "@/components/mode-toggle";
 import {
   Popover,
   PopoverContent,
@@ -42,7 +41,7 @@ function Navigation() {
   const settings = useSettings();
   const params = useParams();
   const create = useMutation(api.documents.create);
-
+  const router = useRouter();
   const resetDuration: number = 150;
 
   useEffect(() => {
@@ -122,7 +121,9 @@ function Navigation() {
   }
 
   function handleCreate() {
-    const promise = create({ title: "Untitled" });
+    const promise = create({ title: "Untitled" }).then((documentId) => {
+      router.push(`/documents/${documentId}`);
+    });
     toast.promise(promise, {
       loading: "Creating a new file...",
       success: "File created",
