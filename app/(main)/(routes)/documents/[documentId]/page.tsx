@@ -5,7 +5,9 @@ import Toolbar from "@/components/toolbar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
+import dynamic from "next/dynamic";
+import { useMemo } from "react";
 
 type PageProps = {
   params: {
@@ -14,8 +16,20 @@ type PageProps = {
 };
 
 function Page({ params }: PageProps) {
+  const Editor = useMemo(
+    () =>
+      dynamic(() => import("@/components/editor"), {
+        ssr: false,
+      }),
+    [],
+  );
   const id = params.documentId;
   const document = useQuery(api.documents.getById, { documentId: id });
+  const update = useMutation(api.documents.update);
+
+  function onChange(content: string) {
+    update({ id: id, content });
+  }
 
   if (document === undefined) {
     return (
@@ -37,8 +51,12 @@ function Page({ params }: PageProps) {
   return (
     <div className="pb-40">
       <Cover url={document.coverImage} />
-      <div className="md:max-w-3xl lg:max-w-4xl">
+      <div className="mx-auto sm:ml-20 md:max-w-3xl lg:max-w-4xl">
         <Toolbar initData={document} />
+        <Editor
+          onChange={onChange}
+          initContent={document.content}
+        />
       </div>
     </div>
   );
