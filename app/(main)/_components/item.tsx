@@ -75,6 +75,7 @@ export default function Item({
     event.stopPropagation();
     if (!id) return;
     const promise = archive({ id });
+    router.push("/documents");
     toast.promise(promise, {
       loading: "Archiving...",
       success: "File archived",
